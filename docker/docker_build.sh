@@ -1,0 +1,1 @@
+nvidia-docker build -t ffbo/neurokernel_component:develop .
