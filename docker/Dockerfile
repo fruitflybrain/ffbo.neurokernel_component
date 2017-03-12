@@ -42,7 +42,7 @@ RUN export PATH="/home/nk/miniconda/bin:${PATH}" && echo $PATH && conda create -
 RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && conda install --yes neurokernel_deps
 RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && pip uninstall --yes pycuda && yes | pip install pycuda
 RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && pip install autobahn[twisted]
-RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && pip install simplejson && pip install pyOpenSSL
+RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && pip install simplejson && pip install pyOpenSSL && RUN pip install service_identity
 
 RUN git clone https://github.com/neurokernel/neurokernel.git
 RUN git clone https://github.com/neurokernel/neurodriver.git
