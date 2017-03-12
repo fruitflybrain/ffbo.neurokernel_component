@@ -44,12 +44,12 @@ from retina.NDComponents.MembraneModels.BufferVoltage import BufferVoltage
 from config import *
 
 def get_config_obj():
-    conf_name = 'configuration/retina.cfg'
+    conf_name = 'configurations/retina.cfg'
 
     # append file extension if not exist
     conf_filename = conf_name if '.' in conf_name else ''.join(
         [conf_name, '.cfg'])
-    conf_specname = 'configuration/retina_template.cfg'
+    conf_specname = 'configurations/retina_template.cfg'
 
     return ConfigReader(conf_filename, conf_specname)
 
