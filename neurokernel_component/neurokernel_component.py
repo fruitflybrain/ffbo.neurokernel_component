@@ -91,7 +91,7 @@ class neurokernel_server(object):
         
         lpus = {}
         patterns = {}
-        G = task
+        G = task['success']['data']
         
         # get graph and output_uid_list for each LPU
         for k, lpu in G['LPU'].iteritems():
