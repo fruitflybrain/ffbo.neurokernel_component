@@ -41,6 +41,7 @@ from retina.NDComponents.MembraneModels.PhotoreceptorModel import PhotoreceptorM
 from retina.NDComponents.MembraneModels.BufferPhoton import BufferPhoton
 from retina.NDComponents.MembraneModels.BufferVoltage import BufferVoltage
 
+from config import *
 
 def get_config_obj():
     conf_name = 'configuration/retina.cfg'

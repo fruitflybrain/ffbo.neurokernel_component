@@ -1,5 +1,6 @@
-export PYTHONPATH=/neuroarch:/neurokernel:/neurodriver/:/retina:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
+#export PYTHONPATH=/neuroarch:/neurokernel:/neurodriver/:/retina:/usr/local/lib/python2.7/site-packages:/usr/lib/python2.7/dist-packages/:$PYTHONPATH
 
+export PATH=/home/nk/miniconda/bin:$PATH
 source activate NK
 
 BASEDIR=$(dirname "$0")
