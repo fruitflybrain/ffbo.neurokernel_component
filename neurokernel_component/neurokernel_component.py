@@ -85,7 +85,7 @@ class neurokernel_server(object):
             config['InputType']['Natural']['coord_file'] = '{}_{}{}'.format(
                     tmp[0], user_id, tmp[1])
         
-        setup_logger(file_name = 'neurokernel_'+user_id+'.log', screen = False)
+        setup_logger(file_name = 'neurokernel_'+user_id+'.log', screen = True)
         
         manager = core.Manager()
         
@@ -216,7 +216,7 @@ class AppSession(ApplicationSession):
 
     def onChallenge(self, challenge):
         if challenge.method == u"wampcra":
-            print("WAMP-CRA challenge received: {}".format(challenge))
+            #print("WAMP-CRA challenge received: {}".format(challenge))
 
             if u'salt' in challenge.extra:
                 # salted secret
@@ -254,7 +254,7 @@ class AppSession(ApplicationSession):
                 print e
                 returnValue(False)
     
-        uri = 'ffbo.nk.launch.%s' % str(details.session)
+        uri = six.u('ffbo.nk.launch.%s' % str(details.session))
         yield self.register(nk_launch_progressive, uri)
         self.log.info('procedure %s registered' % uri)
 
@@ -265,14 +265,14 @@ class AppSession(ApplicationSession):
             # CALL server registration
             try:
                 # registered the procedure we would like to call
-                res = yield self.call('ffbo.server.register',details.session,'nk','nk_server')
+                res = yield self.call(six.u('ffbo.server.register'),details.session,'nk','nk_server')
                 self.log.info("register new server called with result: {result}",result=res)
 
             except ApplicationError as e:
                 if e.error != 'wamp.error.no_such_procedure':
                     raise e
 
-        yield self.subscribe(register_component, 'ffbo.processor.connected')
+        yield self.subscribe(register_component, six.u('ffbo.processor.connected'))
         self.log.info("subscribed to topic 'ffbo.processor.connected'")
 
         register_component()
