@@ -64,7 +64,7 @@ RUN pip install configparser
 # Clone git repositories
 RUN git clone https://github.com/neurokernel/neurokernel.git
 RUN git clone https://github.com/neurokernel/neurodriver.git
-RUN git clone https://github.com/neurokernel/neuroarch.git
+RUN git clone https://github.com/fruitflybrain/neuroarch.git
 RUN git clone https://github.com/neurokernel/retina.git
 
 # Setup git repositories
