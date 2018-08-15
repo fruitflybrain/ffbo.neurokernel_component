@@ -20,6 +20,14 @@ Please note that the 'bridge' driver provides a network that is limited to the h
 
     docker network create -d overlay ffbonet
 
+### Setup
+
+In order to run Neurokernel component, you will need to install the nvidia-container-runtime, which interfaces between Docker and GPUs on the host machine, and set it as the default Docker runtime. This can be done on Debian-based linux systems using:
+
+    sh setup_gpu.sh
+
+For more information, see [https://github.com/nvidia/nvidia-container-runtime](https://github.com/nvidia/nvidia-container-runtime).
+
 ### Docker Hub
 
 Installing via the [Docker Hub](https://hub.docker.com/r/jonmarty/ffbo.neurokernel_component) repository is recommended for non-developers. The image is installed directly onto your local Docker daemon, from which you can run it in a container. Installation is as follows:
