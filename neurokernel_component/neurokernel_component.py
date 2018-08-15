@@ -41,7 +41,40 @@ from retina.NDComponents.MembraneModels.PhotoreceptorModel import PhotoreceptorM
 from retina.NDComponents.MembraneModels.BufferPhoton import BufferPhoton
 from retina.NDComponents.MembraneModels.BufferVoltage import BufferVoltage
 
-from config import *
+from configparser import ConfigParser
+
+# Grab configuration from file
+root = os.path.expanduser("/")
+home = os.path.expanduser("~")
+filepath = os.path.dirname(os.path.abspath(__file__))
+config_files = []
+config_files.append(os.path.join(home, "config", "ffbo.neurokernel_component.ini"))
+config_files.append(os.path.join(root, "config", "ffbo.neurokernel_component.ini"))
+config_files.append(os.path.join(home, "config", "config.ini"))
+config_files.append(os.path.join(root, "config", "config.ini"))
+config_files.append(os.path.join(filepath, "config.ini"))
+config = ConfigParser()
+configured = False
+for config_file in config_files:
+    if os.path.exists(config_file):
+        config.read(config_file)
+        configured = True
+        break
+if not configured:
+    raise Exception("No config file exists for this component")
+
+user = config["USER"]["user"]
+secret = config["USER"]["secret"]
+ssl = eval(config["AUTH"]["ssl"])
+websockets = "wss" if ssl else "ws"
+ip = config["SERVER"]["ip"]
+port = config["NLP"]["expose-port"]
+url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
+realm = config["SERVER"]["realm"]
+authentication = eval(config["AUTH"]["authentication"])
+debug = eval(config["DEBUG"]["debug"])
+ca_cert_file = config["AUTH"]["ca_cert_file"]
+intermediate_cert_file = config["AUTH"]["intermediate_cert_file"]
 
 def get_config_obj():
     conf_name = 'configurations/retina.cfg'
