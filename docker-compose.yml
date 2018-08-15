@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+    ffbo.neurokernel_component:
+        container_name: ffbo.neurokernel_component
+        tty: true
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: ffbo/neurokernel_component:develop
+        networks:
+            - ffbonet
+        devices:
+            - /dev/nvidia0:/dev/nvidia0
+            - /dev/nvidiactl:/dev/nvidiactl
+            - /dev/nvidia-uvm:/dev/nvidia-uvm
+networks:
+    ffbonet:
+        external: true
