@@ -1,4 +1,4 @@
-# FFBO NeuroNLP Component
+# FFBO Neurokernel Component
 [![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/jonmarty/ffbo.neurokernel_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/jonmarty/ffbo.neurokernel_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/jonmarty/ffbo.neurokernel_component.svg?style=flat-square)](https://hub.docker.com/r/jonmarty/ffbo.neurokernel_component)
 ## Overview
 
