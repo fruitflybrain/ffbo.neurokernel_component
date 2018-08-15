@@ -2,9 +2,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/jonmarty/ffbo.neurokernel_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/jonmarty/ffbo.neurokernel_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/jonmarty/ffbo.neurokernel_component.svg?style=flat-square)](https://hub.docker.com/r/jonmarty/ffbo.neurokernel_component)
 ## Overview
 
-This package contains the NLP component for the [FFBO architecture](http://fruitflybrain.org/). NeuroNLP provides an interface to translate Natural language queries, into a JSON format consumable by the [Neuroarch](http://github.com/jonmarty/ffbo.neuroarch_component) API, which is then used to retrieve neurophysiological data and 3D representations of neurons visualized by the [Processor](http://github.com/jonmarty/ffbo.processor) component.
-
-__NOTE__ This component requires an instance of the FFBO processor component to be running and knowledge of the processor IP address. This is accomplished by setting up and attaching this image to the 'ffbonet' network, which is described below in the __Installation and Execution__ section.
+This package contains the Neurokernel component for the [FFBO architecture](http://fruitflybrain.org/). The Neurokernel component runs simulations of neural circuits on the GPU. It recieves queries from the [Processor](https://github.com/jonmarty/ffbo.processor) component.
 
 ## Installation and Execution
 
