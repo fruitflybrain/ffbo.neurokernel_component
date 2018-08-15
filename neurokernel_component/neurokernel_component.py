@@ -55,11 +55,13 @@ config_files.append(os.path.join(root, "config", "config.ini"))
 config_files.append(os.path.join(filepath, "config.ini"))
 config = ConfigParser()
 configured = False
+file_type = 0
 for config_file in config_files:
     if os.path.exists(config_file):
         config.read(config_file)
         configured = True
         break
+    file_type += 1
 if not configured:
     raise Exception("No config file exists for this component")
 
@@ -67,7 +69,10 @@ user = config["USER"]["user"]
 secret = config["USER"]["secret"]
 ssl = eval(config["AUTH"]["ssl"])
 websockets = "wss" if ssl else "ws"
-ip = config["SERVER"]["ip"]
+if "ip" in config["SERVER"]:
+    ip = config["SERVER"]["ip"]
+else:
+    ip = "ffbo.processor"
 port = config["NLP"]["expose-port"]
 url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
 realm = config["SERVER"]["realm"]

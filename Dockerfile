@@ -19,14 +19,13 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN adduser --disabled-password --gecos '' nk
 
-ADD . /home/nk/neurokernel_component
-
 # Copy over private key, and set permissions
 WORKDIR /home/nk
 RUN mkdir .ssh
 RUN chown -R nk:nk /home/nk/.ssh
 
 USER nk
+ADD . /home/nk/neurokernel_component
 
 RUN echo "export PATH=/usr/local/cuda/bin:\$PATH" >> /home/nk/.bashrc
 RUN echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/user/local/nvidia/lib64:/user/local/nvidia/lib:\$LD_LIBRARY_PATH" >> /home/nk/.bashrc
