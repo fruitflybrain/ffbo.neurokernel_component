@@ -5,7 +5,7 @@
 # require: nvidia-driver and nvidia-docker to be installed on host
 ###########################################
 
-FROM nvidia/cuda
+FROM nvidia/cuda:8.0-devel
 
 MAINTAINER "Yiyin Zhou <yiyin@ee.columbia.edu>"
 
@@ -64,8 +64,8 @@ RUN pip install configparser
 #RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && pip install simplejson && pip install pyOpenSSL && pip install service_identity
 
 # Clone git repositories
-RUN git clone --single-branch -b feature/python2-3-compatible https://github.com/neurokernel/neurokernel.git
-RUN git clone --single-branch -b feature/python2-3-compatible https://github.com/neurokernel/neurodriver.git
+RUN git clone --single-branch -b feature/nk_integration https://github.com/neurokernel/neurokernel.git
+RUN git clone https://github.com/neurokernel/neurodriver.git
 RUN git clone --single-branch -b develop https://github.com/fruitflybrain/neuroarch.git
 RUN git clone https://github.com/neurokernel/retina.git
 
