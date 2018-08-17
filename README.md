@@ -1,8 +1,8 @@
 # FFBO Neurokernel Component
-[![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/jonmarty/ffbo.neurokernel_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/jonmarty/ffbo.neurokernel_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/jonmarty/ffbo.neurokernel_component.svg?style=flat-square)](https://hub.docker.com/r/jonmarty/ffbo.neurokernel_component)
+[![Twitter Follow](https://img.shields.io/twitter/follow/flybrainobs.svg?style=social&label=Follow)](https://twitter.com/flybrainobs) ![license](https://img.shields.io/github/license/fruitflybrain/ffbo.neurokernel_component.svg?style=flat-square) ![GitHub last commit](https://img.shields.io/github/last-commit/fruitflybrain/ffbo.neurokernel_component.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/fruitflybrain/ffbo.neurokernel_component.svg?style=flat-square)](https://hub.docker.com/r/fruitflybrain/ffbo.neurokernel_component)
 ## Overview
 
-This package contains the Neurokernel component for the [FFBO architecture](http://fruitflybrain.org/). The Neurokernel component runs simulations of neural circuits on the GPU. It recieves queries from the [Processor](https://github.com/jonmarty/ffbo.processor) component.
+This package contains the Neurokernel component for the [FFBO architecture](http://fruitflybrain.org/). The Neurokernel component runs simulations of neural circuits on the GPU. It recieves queries from the [Processor](https://github.com/fruitflybrain/ffbo.processor) component.
 
 ## Installation and Execution
 
@@ -30,20 +30,20 @@ For more information, see [https://github.com/nvidia/nvidia-container-runtime](h
 
 ### Docker Hub
 
-Installing via the [Docker Hub](https://hub.docker.com/r/jonmarty/ffbo.neurokernel_component) repository is recommended for non-developers. The image is installed directly onto your local Docker daemon, from which you can run it in a container. Installation is as follows:
+Installing via the [Docker Hub](https://hub.docker.com/r/fruitflybrain/ffbo.neurokernel_component) repository is recommended for non-developers. The image is installed directly onto your local Docker daemon, from which you can run it in a container. Installation is as follows:
 
-    docker pull jonmarty/ffbo.neurokernel_component
+    docker pull fruitflybrain/ffbo.neurokernel_component
 
 Once the image is installed, you can run it in a container:
 
-    docker run -P -t --net ffbonet --name ffbo.neurokernel_component jonmarty/ffbo.neurokernel_component
+    docker run -P -t --net ffbonet --name ffbo.neurokernel_component fruitflybrain/ffbo.neurokernel_component
 
 
 ### Github with Docker Compose
 
-Installing via the [Github](https://github.com/jonmarty/ffbo.neurokernel_component) repository is recommended for developers.The code is downloaded as follows:
+Installing via the [Github](https://github.com/fruitflybrain/ffbo.neurokernel_component) repository is recommended for developers.The code is downloaded as follows:
 
-    git clone https://github.com/jonmarty/ffbo.neurokernel_component
+    git clone https://github.com/fruitflybrain/ffbo.neurokernel_component
 
 Building and running the repository is simplified with Docker Compose, which stores the configuration for a service (such as network and name for the container and the Dockerfile to build from) in a docker-compose.yml file, simplifying the command-line call. Building and running the Docker image can be accomplished with:
 
@@ -79,10 +79,10 @@ FFBO components are configured using .ini files. If you are building and running
     
 or, in the case that you don't have this repository installed, via:
     
-    wget -o ~/.ffbo/config/ffbo.neurokernel_component.ini https://cdn.rawgit.com/jonmarty/ffbo.neurokernel_component/master/config.ini
+    wget -o ~/.ffbo/config/ffbo.neurokernel_component.ini https://cdn.rawgit.com/fruitflybrain/ffbo.neurokernel_component/master/config.ini
 
 Once you have configured the .ini file, you can run it with:
     
-    docker run -P -it --net ffbonet --name ffbo.neurokernel_component -v ~/.ffbo/config:/config jonmarty/ffbo.neurokernel_component
+    docker run -P -it --net ffbonet --name ffbo.neurokernel_component -v ~/.ffbo/config:/config fruitflybrain/ffbo.neurokernel_component
     
 Or equivalently for other build methods. If you have configured a port, make sure to expose it by adding the '-p [INTERNAL PORT]:[EXTERNAL PORT]', where the internal port is the port you configured in the .ini file and the external port is the port on localhost that the output of the internal port is mapped to. Running without docker is the same process described above in the Manual Execution section.
