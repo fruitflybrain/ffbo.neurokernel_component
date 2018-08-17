@@ -22,9 +22,9 @@ Please note that the 'bridge' driver provides a network that is limited to the h
 
 ### Setup
 
-In order to run Neurokernel component, you will need to install the nvidia-container-runtime, which interfaces between Docker and GPUs on the host machine, and set it as the default Docker runtime. This can be done on Debian-based linux systems using:
+In order to run Neurokernel component, you will need to install the nvidia-container-runtime, which interfaces between Docker and GPUs on the host machine, and set it as the default Docker runtime. This can be done on Ubuntu using:
 
-    sh setup_gpu.sh
+    sh nvidia-setup-ubuntu.sh
 
 For more information, see [https://github.com/nvidia/nvidia-container-runtime](https://github.com/nvidia/nvidia-container-runtime).
 
