@@ -41,7 +41,45 @@ from retina.NDComponents.MembraneModels.PhotoreceptorModel import PhotoreceptorM
 from retina.NDComponents.MembraneModels.BufferPhoton import BufferPhoton
 from retina.NDComponents.MembraneModels.BufferVoltage import BufferVoltage
 
-from config import *
+from configparser import ConfigParser
+
+# Grab configuration from file
+root = os.path.expanduser("/")
+home = os.path.expanduser("~")
+filepath = os.path.dirname(os.path.abspath(__file__))
+config_files = []
+config_files.append(os.path.join(home, "config", "ffbo.neurokernel_component.ini"))
+config_files.append(os.path.join(root, "config", "ffbo.neurokernel_component.ini"))
+config_files.append(os.path.join(home, "config", "config.ini"))
+config_files.append(os.path.join(root, "config", "config.ini"))
+config_files.append(os.path.join(filepath, "config.ini"))
+config = ConfigParser()
+configured = False
+file_type = 0
+for config_file in config_files:
+    if os.path.exists(config_file):
+        config.read(config_file)
+        configured = True
+        break
+    file_type += 1
+if not configured:
+    raise Exception("No config file exists for this component")
+
+user = config["USER"]["user"]
+secret = config["USER"]["secret"]
+ssl = eval(config["AUTH"]["ssl"])
+websockets = "wss" if ssl else "ws"
+if "ip" in config["SERVER"]:
+    ip = config["SERVER"]["ip"]
+else:
+    ip = "ffbo.processor"
+port = config["NLP"]["expose-port"]
+url = "%(ws)s://%(ip)s:%(port)s/ws" % {"ws":websockets, "ip":ip, "port":port}
+realm = config["SERVER"]["realm"]
+authentication = eval(config["AUTH"]["authentication"])
+debug = eval(config["DEBUG"]["debug"])
+ca_cert_file = config["AUTH"]["ca_cert_file"]
+intermediate_cert_file = config["AUTH"]["intermediate_cert_file"]
 
 def get_config_obj():
     conf_name = 'configurations/retina.cfg'
@@ -61,7 +99,7 @@ def create_graph_from_database_returned(dict):
         if len(v) > 0:
             for post, edges in v.items():
                 for edge_attr in edges.itervalues():
-                    g.add_edge(pre, post, attr_dict = edge_attr)
+                    g.add_edge(pre, post, **edge_attr)
     return g
 
 
@@ -91,7 +129,7 @@ class neurokernel_server(object):
         
         lpus = {}
         patterns = {}
-        G = task['success']['data']
+        G = task['data']
         
         # get graph and output_uid_list for each LPU
         for k, lpu in G['LPU'].iteritems():
@@ -126,6 +164,10 @@ class neurokernel_server(object):
         # add LPUs to manager
         for k, lpu in lpus.iteritems():
             graph = lpu['graph']
+            comps =  graph.node.items()
+            #for uid, comp in comps:
+            #    if 'class' in comp:
+            #        print comp
             if k == 'retina':
                 prs = [node for node in graph.nodes(data=True) \
                        if node[1]['class'] == 'PhotoreceptorModel']
@@ -140,7 +182,7 @@ class neurokernel_server(object):
             output_processor = FileOutputProcessor(
                                     [('V', lpu['output_uid_list'])],
                                     lpu['output_file'], sample_interval=10)
-        
+            
             (comp_dict, conns) = LPU.graph_to_dicts(graph)
             
             manager.add(LPU, k, dt, comp_dict, conns,
@@ -153,7 +195,8 @@ class neurokernel_server(object):
             l1,l2 = k.split('-')
             if l1 in lpus and l2 in lpus:
                 print('Connecting {} and {}'.format(l1, l2))
-                pat, key_order = Pattern.from_graph(nx.DiGraph(pattern['graph']))
+                pat, key_order = Pattern.from_graph(nx.DiGraph(pattern['graph']),
+                                                    return_key_order = True)
                 with Timer('update of connections in Manager'):
                     manager.connect(l1, l2, pat,
                                     int_0 = key_order.index(l1),
@@ -333,4 +376,4 @@ if __name__ == '__main__':
         # now actually run a WAMP client using our session class ClientSession
         runner = ApplicationRunner(url=args.url, realm=args.realm, extra=extra)
 
-    runner.run(AppSession)
+    runner.run(AppSession, auto_reconnect=True)
