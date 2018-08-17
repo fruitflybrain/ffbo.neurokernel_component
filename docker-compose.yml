@@ -6,7 +6,7 @@ services:
         build:
             context: .
             dockerfile: ./Dockerfile
-        image: jonmarty/ffbo.neurokernel_component
+        image: fruitflybrain/ffbo.neurokernel_component:local
         networks:
             - ffbonet
 networks:
