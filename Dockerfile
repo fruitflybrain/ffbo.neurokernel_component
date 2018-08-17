@@ -1,11 +1,11 @@
 ###########################################
-# run using: 
+# run using:
 # nvidia-docker run --name neurokernel_component -v $(dirname `pwd`):/neurokernel_component  -v $(dirname $(dirname `pwd`))/ffbo.neuroarch:/neuroarch -it ffbo/neurokernel_component:develop sh /neurokernel_component/neurokernel_component/run_component_docker.sh
 # build using : nvidia-docker build -t ffbo/neurokernel_component:develop .
 # require: nvidia-driver and nvidia-docker to be installed on host
 ###########################################
 
-FROM nvidia/cuda
+FROM nvidia/cuda:8.0-devel
 
 MAINTAINER "Yiyin Zhou <yiyin@ee.columbia.edu>"
 
@@ -25,8 +25,10 @@ ADD . /home/nk/neurokernel_component
 WORKDIR /home/nk
 RUN mkdir .ssh
 RUN chown -R nk:nk /home/nk/.ssh
+RUN chown -R nk:nk /home/nk/neurokernel_component
 
 USER nk
+
 
 RUN echo "export PATH=/usr/local/cuda/bin:\$PATH" >> /home/nk/.bashrc
 RUN echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/user/local/nvidia/lib64:/user/local/nvidia/lib:\$LD_LIBRARY_PATH" >> /home/nk/.bashrc
@@ -50,7 +52,7 @@ ENV PATH /home/nk/miniconda/envs/NK/bin:$PATH
 RUN conda install -n NK --yes neurokernel_deps
 # NOTE: Returns "Skipping pycuda as it is not installed."
 #RUN pip uninstall --yes pycuda
-RUN pip install numpy
+RUN pip install numpy==1.14.5
 RUN pip install --upgrade --ignore-installed pycuda
 RUN pip install autobahn[twisted] simplejson pyOpenSSL service_identity
 RUN pip install configparser
@@ -62,9 +64,9 @@ RUN pip install configparser
 #RUN export PATH="/home/nk/miniconda/bin:${PATH}" && source activate NK && pip install simplejson && pip install pyOpenSSL && pip install service_identity
 
 # Clone git repositories
-RUN git clone https://github.com/neurokernel/neurokernel.git
+RUN git clone --single-branch -b feature/nk_integration https://github.com/neurokernel/neurokernel.git
 RUN git clone https://github.com/neurokernel/neurodriver.git
-RUN git clone https://github.com/fruitflybrain/neuroarch.git
+RUN git clone --single-branch -b develop https://github.com/fruitflybrain/neuroarch.git
 RUN git clone https://github.com/neurokernel/retina.git
 
 # Setup git repositories
