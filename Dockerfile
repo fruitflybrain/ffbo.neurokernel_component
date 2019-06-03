@@ -54,7 +54,7 @@ RUN conda install -n NK --yes neurokernel_deps
 #RUN pip uninstall --yes pycuda
 RUN pip install numpy==1.14.5
 RUN pip install --upgrade --ignore-installed pycuda
-RUN pip install autobahn[twisted] simplejson pyOpenSSL service_identity
+RUN pip install autobahn[twisted]==18.12.1 simplejson pyOpenSSL service_identity
 RUN pip install configparser
 
 #RUN export PATH="/home/nk/miniconda/bin:${PATH}" && echo $PATH && conda create -n NK -y python
