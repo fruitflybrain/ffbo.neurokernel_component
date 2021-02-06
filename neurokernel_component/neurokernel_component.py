@@ -48,6 +48,7 @@ from neurokernel.LPU.LPU import LPU
 from neurokernel.tools.misc import LPUExecutionError
 from neurokernel.LPU.OutputProcessors.FileOutputProcessor import FileOutputProcessor
 from neuroarch import nk
+from version import __version__
 
 
 import msgpack
@@ -173,6 +174,12 @@ class neurokernel_server(object):
                         nx.set_node_attributes(graph, {uid: comp['attr_dict']})
                         # print('changed',uid)
                         graph.nodes[uid].pop('attr_dict')
+                    if 'params' in comp:
+                        params = graph.nodes[uid].pop('params')
+                        nx.set_node_attributes(graph, {uid: {k: float(v) for k, v in params.items()}})
+                    if 'states' in comp:
+                        states = graph.nodes[uid].pop('states')
+                        nx.set_node_attributes(graph, {uid: {'init{}'.format(k): float(v) for k, v in states.items()}})
                 for i,j,k,v in graph.edges(keys=True, data=True):
                     if 'attr_dict' in v:
                         for key in v['attr_dict']:
@@ -582,7 +589,7 @@ class AppSession(ApplicationSession):
                                       details.session,
                                       'nk',
                                       {"name": 'neurokernel',
-                                       "version": 1.05,
+                                       "version": __version__,
                                        "autobahn": autobahn.__version__})
                 self.log.info("register new server called with result: {result}", result=res)
 
@@ -593,6 +600,7 @@ class AppSession(ApplicationSession):
         def process_queue():
             if len(launch_queue):
                 user_id, task = launch_queue[0]
+                launch_queue.pop(0)
                 res = server.launch(user_id, task)
                 batch_size = 1024*1024*100
                 try:
@@ -616,7 +624,6 @@ class AppSession(ApplicationSession):
                         res_to_processor = self.call(six.u(task['forward']), msgpack.packb({'execution_result_end':six.u(task['name'])}))
                     except:
                         pass
-                launch_queue.pop(0)
             else:
                 return
 
