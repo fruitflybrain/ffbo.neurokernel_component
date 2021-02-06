@@ -15,13 +15,13 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'neurokernel_component'
-VERSION =            '0.1'
-AUTHOR =             'Chung-Heng Yeh'
-AUTHOR_EMAIL =       'c.yeh@columbia.edu'
-MAINTAINER =         AUTHOR
-MAINTAINER_EMAIL =   AUTHOR_EMAIL
-DESCRIPTION =        'A wrapper for a neurokernel to enable rpc communication'
-URL =                'TBD'
+VERSION =            '0.3.0'
+AUTHOR =             'Chung-Heng Yeh, Yiyin Zhou'
+AUTHOR_EMAIL =       'c.yeh@columbia.edu, yiyin@ee.columbia.edu'
+MAINTAINER =         'Yiyin Zhou'
+MAINTAINER_EMAIL =   'yiyin@ee.columbia.edu'
+DESCRIPTION =        'Server Component for Neurokernel Execution Engine'
+URL =                'https://github.com/fruitflybrain/ffbo.neurokernel_component'
 LONG_DESCRIPTION =   DESCRIPTION
 DOWNLOAD_URL =       URL
 LICENSE =            'BSD'
