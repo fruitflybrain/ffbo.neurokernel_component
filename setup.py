@@ -59,5 +59,16 @@ if __name__ == "__main__":
         packages = PACKAGES,
         include_package_data = True,
         install_requires = [
+            'autobahn[twisted]',
+            'simplejson',
+            'configparser',
+            'networkx',
+            'neurokernel',
+            'neurodriver'
+            'neuroarch',
+            'msgpack',
+            'msgpack-numpy',
+            'pyopenssl',
+            'txaio'
         ],
         )
