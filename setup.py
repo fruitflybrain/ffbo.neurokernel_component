@@ -64,11 +64,11 @@ if __name__ == "__main__":
             'configparser',
             'networkx',
             'neurokernel',
-            'neurodriver'
+            'neurodriver',
             'neuroarch',
             'msgpack',
             'msgpack-numpy',
             'pyopenssl',
-            'txaio'
+            'txaio',
         ],
         )
