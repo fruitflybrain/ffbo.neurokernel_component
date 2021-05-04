@@ -66,7 +66,7 @@ if __name__ == "__main__":
             'neurokernel',
             'neurodriver',
             'neuroarch',
-            'msgpack',
+            'msgpack > 1.0',
             'msgpack-numpy',
             'pyopenssl',
             'txaio',
