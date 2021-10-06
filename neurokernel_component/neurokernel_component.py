@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import neurokernel.mpi_relaunch
 import sys, traceback
 import os
 import pickle
