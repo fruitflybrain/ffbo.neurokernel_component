@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neurokernel_component"
+version = "0.3.1"
+description = "Server Component for Neurokernel Execution Engine"
+license = { text = "BSD" }
+authors = [
+  { name = "Chung-Heng Yeh", email = "c.yeh@columbia.edu" },
+  { name = "Yiyin Zhou",     email = "yiyin.zhou@fordham.edu" }
+]
+maintainers = [
+  { name = "Yiyin Zhou", email = "yiyin.zhou@fordham.edu" }
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development"
+]
+dependencies = [
+  "autobahn[twisted]",
+  "simplejson",
+  "configparser",
+  "networkx",
+  "neurokernel",
+  "neurodriver",
+  "neuroarch",
+  "msgpack>1.0",
+  "msgpack-numpy",
+  "pyopenssl",
+  "txaio"
+]
+
+[project.urls]
+Homepage = "https://github.com/fruitflybrain/ffbo.neurokernel_component"
+Download = "https://github.com/fruitflybrain/ffbo.neurokernel_component"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["neurokernel_component*"]
